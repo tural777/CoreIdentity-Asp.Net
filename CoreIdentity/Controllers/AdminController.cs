@@ -61,6 +61,12 @@ namespace CoreIdentity.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+
+            return View();
+        }
 
     }
 }
