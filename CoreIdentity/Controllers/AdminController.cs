@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using CoreIdentity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
- 
+
 
 namespace CoreIdentity.Controllers
 {
@@ -62,11 +62,33 @@ namespace CoreIdentity.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Login()
+        [HttpPost]
+        public async Task<IActionResult> Delete(string Id)
         {
+            var user = await userManager.FindByIdAsync(Id);
 
-            return View();
+            if (user != null)
+            {
+                var result = await userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "User not found");
+            }
+
+            return View("Index", userManager.Users);
         }
 
     }

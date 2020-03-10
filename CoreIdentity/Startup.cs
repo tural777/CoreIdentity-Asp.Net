@@ -36,16 +36,12 @@ namespace CoreIdentity
             //Custom password validator (in Infrastructure)
             services.AddTransient<IPasswordValidator<ApplicationUser>, CustomPasswordValidator>();
 
-            //Custom user email validator (in Infrastructure)
-            services.AddTransient<IUserValidator<ApplicationUser>, CustomUserValidator>();
-
 
             //Password validator (in Startup)
             services.AddIdentity<ApplicationUser, IdentityRole>(options=>
             {
                 //options.User.AllowedUserNameCharacters = "abcds";
                 //options.User.RequireUniqueEmail = true;
-                
 
                 //options.Password.RequiredLength = 7;
                 //options.Password.RequireLowercase = false;
@@ -55,6 +51,10 @@ namespace CoreIdentity
             })
             .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
             .AddDefaultTokenProviders();
+
+            
+            //Custom user email validator (in Infrastructure)
+            services.AddTransient<IUserValidator<ApplicationUser>, CustomUserValidator>();
 
 
             services.AddMvc()
