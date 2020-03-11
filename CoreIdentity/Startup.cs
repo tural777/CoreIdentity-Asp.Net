@@ -26,11 +26,15 @@ namespace CoreIdentity
             Configuration = configuration;
         }
 
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            //Change default LoginPath
+            //services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Member/Index");
 
 
             //Custom password validator (in Infrastructure)
@@ -38,7 +42,7 @@ namespace CoreIdentity
 
 
             //Password validator (in Startup)
-            services.AddIdentity<ApplicationUser, IdentityRole>(options=>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 //options.User.AllowedUserNameCharacters = "abcds";
                 //options.User.RequireUniqueEmail = true;
@@ -52,7 +56,7 @@ namespace CoreIdentity
             .AddEntityFrameworkStores<ApplicationIdentityDbContext>()
             .AddDefaultTokenProviders();
 
-            
+
             //Custom user email validator (in Infrastructure)
             services.AddTransient<IUserValidator<ApplicationUser>, CustomUserValidator>();
 
@@ -87,7 +91,7 @@ namespace CoreIdentity
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Admin}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

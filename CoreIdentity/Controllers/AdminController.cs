@@ -112,7 +112,6 @@ namespace CoreIdentity.Controllers
         }
 
 
-
         [HttpPost]
         public async Task<IActionResult> Update(string Id, string Email, string Password)
         {
