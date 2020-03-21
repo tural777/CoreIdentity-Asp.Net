@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using CoreIdentity.Models;
 
-namespace Core2Identity.Controllers
+namespace CoreIdentity.Controllers
 {
     [Authorize]
     public class AccountController : Controller
